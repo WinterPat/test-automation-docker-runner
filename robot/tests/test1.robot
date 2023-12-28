@@ -1,58 +1,35 @@
 *** Settings ***
-Documentation               Opinnäytetyö demo testi
-...                     
-Resource                    ${CURDIR}${/}resources.robot
-Test Timeout                90 minutes
-Suite Setup                 OMA Suite Setup
-Suite Teardown              OMA Suite Teardown
-Test Setup                  OMA Test Setup
-Test Teardown               OMA Test Teardown
-Force Tags                  testi_1
-
-
-*** Variables ***
-# Suite inputs
-${SITE}                     https://www.google.com/
-
-# Suite output
-${KESKIARVO}                ${NONE}
-${OPINTOPISTEET}            ${NONE}
+Library     Browser
 
 
 *** Test Cases ***
-Gofore_Com_Testi_1   
-    Go To          ${SITE}
-    ClickText      Accept all
-    TypeText       //*[@name\="q"]             Gofore
-    ClickText      Google Search
-    VerifyText     Gofore: We offer expert knowledge in digitalisation
-    ClickText      Gofore: We offer expert knowledge in digitalisation
-    ScrollTo       News
-    ClickText      News
-    ClickText      The building blocks of a great digital society – this is how Finland leads the way
-    VerifyText     The building blocks of a great digital society – this is how Finland leads the way
-    Sleep          5s
+Gofore
+    New Browser             chromium    headless=No  devtools=True
+    New Context             viewport={'width': 1920, 'height': 1080}
+    New Page                https://www.google.com
+    Set Browser Timeout     30.0 sec
+    Get Page Source
+    Click                   xpath=/html/body/div[2]/div[3]/div[3]/span/div/div/div/div[3]/div[1]/button[2]/div
+    Sleep  2
 
-Verkkokauppa_Com_Testi_2
-    [Documentation]
-    [Tags]
-    Go To          ${SITE}
-    TypeText       //*[@name\="q"]             Verkkokauppa
-    ClickText      Google Search
-    VerifyText     Verkkokauppa.com - todennäköisesti aina halvempi
-    LogScreenshot
-    ClickText      Verkkokauppa.com - todennäköisesti aina halvempi
-    LogScreenshot
-    Sleep          10
+    Fill Text    //*[@id="APjFqb"]    verkkokauppa.com
+    Click    //input[1]
+    Click    //h3[@class="LC20lb MBeuO DKV0Md"]
+    Click    //span[@class="sc-dCFHLb bdultG sc-282kdl-3 knIkQt"]
+    Click    xpath=(//div[@class="sc-1n5lsnz-0 gbnwYU"])[2]
+    Click    xpath=(//div[@class="sc-1n5lsnz-0 gbnwYU"])[2]
+    Click    xpath=(//div[@class="sc-1n5lsnz-0 gbnwYU"])[3]
+    Click    xpath=(//div[@class="sc-1n5lsnz-0 gbnwYU"])[4]
+    Click    //a[@title="Apple MacBook Pro 14” M3 Max 36 Gt, 1 Tt 2023 -kannettava, tähtimusta (MRX53)"]
 
-Twitch_Com_Testi_3
-    [Documentation]
-    [Tags]
-    Go To          ${SITE}
-    TypeText       //*[@name\="q"]             Twitch.tv
-    ClickText      Google Search
-    VerifyText     Twitch is an interactive livestreaming service for content spanning gaming, entertainment, sports, music, and more.
-    LogScreenshot
-    ClickText      //*[@class\="LC20lb MBeuO DKV0Md"]
-    LogScreenshot
-    Sleep          30
+    #Type Text               //*[@id="APjFqb"]          Gofore
+    #Click                   xpath=/html/body/div[1]/div[3]/form/div[1]/div[1]/div[2]/div[2]/div[6]/center/input[1]
+    #Click                   text="Gofore: Eettisen digimaailman pioneeri"
+    #Click                   text="Allow cookies"
+    #Click                   xpath=//*[@id="colophon"]/div/div[2]/ul/li[1]/a
+    #
+
+
+    
+    
+

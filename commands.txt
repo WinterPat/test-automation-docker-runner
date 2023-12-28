@@ -1,0 +1,47 @@
+docker run -v $(PWD):/action-runner --shm-size=2g 1935:1935 -p 8080:80 -p 33389:3389 docker-runner:latest foo bar yes
+http://localhost:8080/player/hls_web_player.html
+google-chrome --no-sandbox --auto-open-devtools-for-tabs --disable-dev-shm-usage log.html &>/dev/null &
+
+robocorp recorder
+https://github.com/robocorp/Robocorp-Recorder/archive/refs/tags/v0.6.0.tar.gz
+
+docker exec -d mycontainer touch /tmp/execWorks
+
+docker run `
+--shm-size=2g `
+-v ${PWD}:/actions-runner `
+-p 1935:1935 `
+-p 8080:80 `
+-p 33389:3389 `
+docker-runner:latest foo bar yes
+
+rm -rf /var/run/xrdp-sesman.pid
+rm -rf /var/run/xrdp.pid
+rm -rf /var/run/xrdp/xrdp-sesman.pid
+rm -rf /var/run/xrdp/xrdp.pid
+/usr/bin/Xvfb :1 -screen 0 1920x1080x24 &
+/sbin/udevd &
+/usr/bin/x11vnc -passwd 1111 -xkb -noxrecord -noxfixes -noxdamage -display :1 -nopw -wait 5 &
+/usr/sbin/xrdp --nodaemon &
+/usr/sbin/xrdp-sesman --nodaemon &
+su - foo -c "dbus-launch /usr/bin/xfce4-session --display=:1" &
+/usr/sbin/sshd -D &
+export DISPLAY=:1
+tail -f /home/foo/.xsession-errors
+
+
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &
+winpty docker exec -u 1000:1000 -it e777d5e28aadeeeea8f0cfb343c00fd5eb68821734511a176bcd5889cf1c71af  sh -c "export DISPLAY=:10 && robot /home/robot/tests/test1.robot" &

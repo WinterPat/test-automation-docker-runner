@@ -26,7 +26,4 @@ done
 # Käynnistä ja kohdista suoratoisto nginx-rtmp-serverille. Avaa suoratoisto ja käynnistä prosessi.
 # Aseta virtuaalinäyttö and ikkunamanageri.
 export DISPLAY=:98
-echo "Waiting for Virtual Display.."
-sleep 10s
-matchbox-window-manager -use_titlebar no &
 python3 -m robot -x outputxunit.xml --listener listeners/recorder.py:on:$suite --outputdir reports/robot_results_$suite -i $suite -v default_username:$username -v default_password:$password .
