@@ -79,28 +79,30 @@ RUN mkdir -p /var/run/dbus
 
 # Asenna xrdp ja xfce4 tarvitsemat paketit
 RUN apk --update --no-cache upgrade && apk add --no-cache \
-    xrdp xorgxrdp xfce4 xfce4-clipman-plugin \
+    xrdp xorg-server x11vnc xorgxrdp xfce4 xfce4-clipman-plugin \
     xfce4-cpugraph-plugin xfce4-screenshooter \
     xfce4-taskmanager xfce4-terminal \
-    xfce4-xkb-plugin openssh x11vnc dbus util-linux \
+    xfce4-xkb-plugin openssh  dbus util-linux \
     util-linux xauth xf86-input-synaptics tango-icon-theme \
-    xf86-video-qxl xf86-input-evdev udev supervisor
+    xf86-input-evdev udev supervisor
 
 # Asenna muut apk paketit.
-RUN apk --no-cache add \
-    bash bash-completion ca-certificates curl chromium \
+RUN apk --update --no-cache upgrade && apk --no-cache add \
+    bash bash-completion ca-certificates curl chromium gcc g++ \
     ffmpeg git xvfb  \
     python3 python3-dev py3-pip \
-    tzdata sudo nano \
-    && ln -sf python3 /usr/bin/python
+    tzdata sudo nano
+
+#RUN python3 -m venv 
 
 # Asenna python paketit.
-RUN pip3 install --no-cache-dir --break-system-packages \
-    robotframework==6.0.2 \
-    robotframework-browser
+#RUN python3 -m pip install --no-cache-dir \
+#    wheel \
+#    robotframework==6.0.2 \
+#    robotframework-browser
 
 # Alusta Robot Framnework Browser kirjasto
-RUN rfbrowser init
+#RUN rfbrowser init
 
 # Kopioi html verkkosoitin.
 COPY docker/player /usr/local/nginx/html/player
@@ -119,13 +121,13 @@ COPY docker/xrdp/supervisord.conf /etc/xrdp/supervisord.conf
 RUN touch /etc/skel/.Xauthority 
 
 # Alusta xfce4 ja xrdp.
-RUN sed -i '/TerminalServerUsers/d' /etc/xrdp/sesman.ini && \
-    sed -i '/TerminalServerAdmins/d' /etc/xrdp/sesman.ini
-    #touch /etc/X11/Xwrapper.config && \
-    #echo "# Xorg.wrap configuation file\nneeds_root_rights = no" >> /etc/X11/Xwrapper.config && \
-    #cp /etc/X11/xrdp/xorg.conf /etc/X11 && \
+RUN touch /etc/X11/Xwrapper.config && \
+    echo -e "# Xorg.wrap configuation file\nallowed_users=anybody\nneeds_root_rights=no" >> /etc/X11/Xwrapper.config && \
     #sed -i "s/console/anybody/g" /etc/X11/Xwrapper.config && \
-    #sed -i "s/xrdp\/xorg/xorg/g" /etc/xrdp/xrdp.ini && 
+    sed -i '/TerminalServerUsers/d' /etc/xrdp/sesman.ini && \
+    sed -i '/TerminalServerAdmins/d' /etc/xrdp/sesman.ini
+
+    #cp /etc/X11/xrdp/xorg.conf /etc/X11 && \    #sed -i "s/xrdp\/xorg/xorg/g" /etc/xrdp/xrdp.ini && 
     #sed -i "s/xrdp\/xorg/xorg/g" /etc/xrdp/sesman.ini && \
     #echo "xfce4-session" >> /etc/skel/.Xsession
 
@@ -145,7 +147,7 @@ RUN chmod 777 -R ${ROBOT_WORK_DIR} \
     && chmod 777 -R ${RUNNER_DIR} \
     && chmod 777 /opt/robotframework/docker/run_suite.sh \
     && chmod +x /actions-runner/start_runner.sh \
-    && chmod +x /actions-runner/alpine-run.sh
+    && chmod a+x /actions-runner/alpine-run.sh
 
 
 # Aseta aikavyöhyke ja luo .Xauthority tiedosto.
@@ -169,5 +171,3 @@ WORKDIR /actions-runner
 #    curl -qL https://www.npmjs.com/install.sh | sh
 
 ENTRYPOINT ["./alpine-run.sh"]
-
-#CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

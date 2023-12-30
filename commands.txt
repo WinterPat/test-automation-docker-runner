@@ -15,6 +15,8 @@ docker run `
 -p 33389:3389 `
 docker-runner:latest foo bar yes
 
+docker run --shm-size=2g -v ${PWD}/robot:/actions-runner/robot -p 1935:1935 -p 8080:80 -p 33389:3389 -p 222:22 alpine-xrdp-testautomation:latest foo bar yes
+
 rm -rf /var/run/xrdp-sesman.pid
 rm -rf /var/run/xrdp.pid
 rm -rf /var/run/xrdp/xrdp-sesman.pid

@@ -16,7 +16,7 @@ start_xrdp_services() {
     rm -rf /var/run/xrdp/xrdp-sesman.pid
     rm -rf /var/run/xrdp/xrdp.pid
 
-    DISPLAY=:99
+    DISPLAY=:0
     export DISPLAY=$DISPLAY
     echo $NEW_USER
     su - $NEW_USER -c "/usr/bin/Xvfb $DISPLAY -screen 0 1920x1080x24" &
